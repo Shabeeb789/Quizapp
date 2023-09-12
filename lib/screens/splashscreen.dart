@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:quiz_app/extensions/extension.dart';
 import 'package:quiz_app/responsive.dart';
+import 'package:quiz_app/screens/authchecker.dart';
+import 'package:quiz_app/screens/loginscreen.dart';
 import 'package:quiz_app/screens/welcomescreen.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -17,7 +19,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     Timer(Duration(seconds: 6), () {
-      context.goto(WelcomeScreen());
+      context.goto(AuthChecker());
     });
     // TODO: implement initState
     super.initState();

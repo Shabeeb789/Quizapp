@@ -1,10 +1,12 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:quiz_app/models/firebase/db_connection.dart';
-import 'package:quiz_app/models/models.dart';
+import 'package:quiz_app/firebase_options.dart';
 import 'package:quiz_app/screens/splashscreen.dart';
-import 'package:quiz_app/screens/welcomescreen.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   // var db = DbConnect();
   // // db.addQuestions(QuestionModel(id: "1", title: "what is 0+0?", options: {
   // //   "1": false,
@@ -13,7 +15,7 @@ void main() {
   // //   "0": true,
   // // }));
   // db.fetchQuestions();
-  runApp(const MyApp());
+  runApp(ProviderScope(child: const MyApp()));
 }
 
 class MyApp extends StatelessWidget {

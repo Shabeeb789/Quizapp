@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:quiz_app/constants/colors.dart';
 import 'package:quiz_app/constants/sizedbox.dart';
+import 'package:quiz_app/screens/loginscreen.dart';
+import 'package:quiz_app/services/authservices.dart';
 
-class ResultBox extends StatelessWidget {
+class ResultBox extends ConsumerWidget {
   const ResultBox(
       {super.key,
       required this.results,
@@ -13,7 +16,7 @@ class ResultBox extends StatelessWidget {
   final VoidCallback onpressed;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return AlertDialog(
       content: Padding(
         padding: EdgeInsets.all(8),
@@ -57,16 +60,43 @@ class ResultBox extends StatelessWidget {
                               : 'Excellent Job',
             ),
             SizedBoxsize.sizedboxh20(context),
-            TextButton(
-              onPressed: onpressed,
-              child: Text(
-                "Start Over",
-                style: TextStyle(
-                  fontSize: 22,
-                  color: Colors.teal,
-                  letterSpacing: 1,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                TextButton(
+                  onPressed: onpressed,
+                  child: Text(
+                    "Start Over",
+                    style: TextStyle(
+                      fontSize: 22,
+                      color: Colors.teal,
+                      letterSpacing: 1,
+                    ),
+                  ),
                 ),
-              ),
+                TextButton(
+                  onPressed: () {
+                    ref
+                        .read(authServiceProvider)
+                        .logout()
+                        .then((value) => Navigator.pushAndRemoveUntil(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => LoginScreen(),
+                            ),
+                            (route) => false));
+                  },
+                  child: Text(
+                    "Log Out",
+                    style: TextStyle(
+                      fontSize: 22,
+                      color: Colors.teal,
+                      letterSpacing: 1,
+                    ),
+                  ),
+                ),
+              ],
             )
           ],
         ),
